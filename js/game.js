@@ -1,4 +1,4 @@
-export function initGame(lang = 'ru') {
+export function initGame(lang = 'ru', playerColor = 'lime') {
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
   const endScreen = document.getElementById('endScreen');
@@ -16,25 +16,42 @@ export function initGame(lang = 'ru') {
     x: canvas.width / 2,
     y: canvas.height / 2,
     radius: 30,
-    color: 'lime',
+    color: playerColor,
     score: 0,
-    wrongEaten: 0,
-    vx: 0,
-    vy: 0
+    wrongEaten: 0
   };
 
   const balls = [];
-  const colors = ['red', 'blue', 'yellow', 'purple', 'lime'];
+  const colors = ['red', 'blue', 'yellow', 'purple', playerColor];
+
+  // создаём шарик в свободном месте
+  function createBall(color) {
+    let x, y, radius;
+    radius = 15 + Math.random() * 15;
+
+    let safe = false;
+    while (!safe) {
+      x = Math.random() * (canvas.width - 2 * radius) + radius;
+      y = Math.random() * (canvas.height - 2 * radius) + radius;
+      safe = true;
+      for (const b of balls) {
+        if (Math.hypot(x - b.x, y - b.y) < radius + b.radius + 5) {
+          safe = false;
+          break;
+        }
+      }
+      if (Math.hypot(x - player.x, y - player.y) < radius + player.radius + 10) {
+        safe = false;
+      }
+    }
+
+    balls.push({ x, y, radius, color, eatenAnimation: 0 });
+  }
 
   function spawnBalls(count) {
     for (let i = 0; i < count; i++) {
-      balls.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: 15 + Math.random() * 15,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        eatenAnimation: 0
-      });
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      createBall(color);
     }
   }
 
@@ -66,10 +83,7 @@ export function initGame(lang = 'ru') {
   function checkCollisions() {
     for (let i = balls.length - 1; i >= 0; i--) {
       const b = balls[i];
-      const dx = player.x - b.x;
-      const dy = player.y - b.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
+      const dist = Math.hypot(player.x - b.x, player.y - b.y);
       if (dist < player.radius + b.radius) {
         if (b.color === player.color) {
           player.radius += 2;
@@ -82,15 +96,18 @@ export function initGame(lang = 'ru') {
       }
     }
 
-    if (balls.length < 15) spawnBalls(5); // динамическое появление шариков
+    if (balls.length < 15) spawnBalls(5);
 
-    if (player.score >= 1000) {
-      endGame(true);
+    const uniqueColors = [...new Set(balls.map(b => b.color))];
+    if (uniqueColors.length <= 3) {
+      const availableColors = colors.filter(c => c !== player.color);
+      for (let i = 0; i < 3; i++) {
+        createBall(availableColors[Math.floor(Math.random() * availableColors.length)]);
+      }
     }
 
-    if (player.wrongEaten > 3) {
-      endGame(false);
-    }
+    if (player.score >= 1000) endGame(true);
+    if (player.wrongEaten > 3) endGame(false);
   }
 
   function endGame(won) {
@@ -100,7 +117,13 @@ export function initGame(lang = 'ru') {
   }
 
   restartButton.addEventListener('click', () => {
-    location.reload(); // простой перезапуск игры
+    endScreen.style.display = 'none';
+    player.color = colors[Math.floor(Math.random() * colors.length)];
+    player.score = 0;
+    player.wrongEaten = 0;
+    player.radius = 30;
+    balls.length = 0;
+    spawnBalls(20);
   });
 
   // мышь
@@ -111,7 +134,6 @@ export function initGame(lang = 'ru') {
 
   // сенсорный джойстик
   const joystick = document.getElementById('joystick');
-  const container = document.getElementById('joystickContainer');
   let dragging = false;
   let startX = 0, startY = 0;
 

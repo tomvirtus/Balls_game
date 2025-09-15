@@ -5,20 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('menu');
   const langSelect = document.getElementById('langSelect');
 
+  const colors = ['red', 'blue', 'yellow', 'purple', 'lime'];
+
   const rulesText = {
     ru: "Правила игры:\n- Управляйте шариком с помощью мыши, клавиш или сенсорного джойстика.\n- Ешьте только шарики своего цвета.\n- Проигрыш, если съедите больше 3 чужих шариков.\n- Победа, если наберёте 1000 очков.\nНажмите OK чтобы начать.",
     en: "Game Rules:\n- Control your ball using mouse, keyboard or touch joystick.\n- Eat only balls of your color.\n- Lose if you eat more than 3 wrong balls.\n- Win if you reach 1000 points.\nPress OK to start."
   };
 
-  startButton.addEventListener('click', () => {
+  function startGame() {
     const lang = langSelect.value;
-    alert(rulesText[lang]); // показываем правила
+    const playerColor = colors[Math.floor(Math.random() * colors.length)];
+    alert(rulesText[lang]);
     menu.style.display = 'none';
 
     if ('ontouchstart' in window) {
       document.getElementById('joystickContainer').style.display = 'block';
     }
 
-    initGame(lang);
-  });
+    initGame(lang, playerColor);
+  }
+
+  startButton.addEventListener('click', startGame);
 });

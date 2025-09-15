@@ -1,0 +1,8 @@
+body, html { margin:0; padding:0; overflow:hidden; font-family:Arial, sans-serif; background:#222; color:#fff; }
+canvas { display:block; }
+#menu { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:20; background:rgba(0,0,0,0.8); padding:20px; border-radius:10px; }
+#hud { position:absolute; top:10px; left:10px; z-index:10; }
+#controls { position:absolute; bottom:20px; left:20px; z-index:10; }
+#joystick { position:relative; width:100px; height:100px; background:rgba(255,255,255,0.1); border-radius:50%; touch-action:none; }
+#stick { position:absolute; width:50px; height:50px; background:rgba(255,255,255,0.5); border-radius:50%; left:25px; top:25px; }
+#socialButtons { margin-top:10px; }

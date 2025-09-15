@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ball Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="menu">
+    <h1 id="gameTitle">Ball Game</h1>
+    <label>Language: <select id="langSelect"><option value="en">English</option><option value="ru">Русский</option></select></label>
+    <label>Music Volume: <input type="range" id="musicVolume" min="0" max="1" step="0.05" value="1"></label>
+    <label>Effects Volume: <input type="range" id="effectsVolume" min="0" max="1" step="0.05" value="1"></label>
+    <button id="startBtn">Start</button>
+    <button id="resetRecordBtn">Reset Records</button>
+</div>
+<div id="hud">
+    <div id="scoreDisplay">Score: 0</div>
+    <div id="wrongDisplay">Wrong: 0</div>
+    <div id="recordDisplay">High: 0</div>
+    <div id="bonusDisplay">Bonus: None</div>
+    <div id="socialButtons">
+        <button id="shareBtn">Share</button>
+    </div>
+</div>
+<canvas id="game"></canvas>
+<div id="controls">
+    <div id="joystick">
+        <div id="stick"></div>
+    </div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

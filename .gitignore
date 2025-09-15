@@ -1,0 +1,26 @@
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Логи
+*.log
+
+# Node.js
+node_modules/
+
+# Резервные файлы редакторов
+*.swp
+*.swo
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+
+# Компилированные файлы
+*.class
+*.exe
+*.out
+
+# Assets кэш
+assets/*.tmp

@@ -7,28 +7,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="menu" aria-label="Главное меню">
+  <div id="menu">
     <h1>Balls Game</h1>
-    <div style="margin-bottom:10px">
-      <label for="langSelect">Язык:</label>
-      <select id="langSelect" aria-label="Выбор языка">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-      </select>
-    </div>
-    <button id="startButton" aria-label="Старт">Старт</button>
+    <label for="langSelect">Выберите язык / Select Language:</label>
+    <select id="langSelect">
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+    </select>
+    <button id="startButton">Старт / Start</button>
   </div>
 
-  <div id="hud" style="position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:5;display:none;min-width:320px;padding:12px 24px;border-radius:16px;background:rgba(30,30,40,0.85);box-shadow:0 2px 16px #0006;backdrop-filter:blur(2px);color:#fff;font-size:18px;transition:opacity 0.5s;align-items:center;gap:16px;display:flex;flex-wrap:wrap;justify-content:center">
-    <span id="scoreDisplay" tabindex="0" style="font-weight:bold">Score: 0</span>
-    <span id="wrongDisplay" tabindex="0" style="color:#ff6a6a">Wrong: 0</span>
-    <span id="recordDisplay" tabindex="0" style="color:#ffd700;font-weight:bold;text-shadow:0 0 8px #ffd700">High: 0</span>
-    <span id="bonusDisplay" tabindex="0" style="color:#7fffd4;font-weight:bold">Bonus: None</span>
-    <button id="pauseBtn" aria-label="Пауза" title="Пауза (Esc/p)" style="margin-left:10px;background:none;border:none;font-size:22px;cursor:pointer;color:#fff">⏸️</button>
-    <button id="restartBtn" aria-label="Рестарт" title="Рестарт (r)" style="background:none;border:none;font-size:22px;cursor:pointer;color:#fff">🔄</button>
-  </div>
+  <canvas id="gameCanvas"></canvas>
 
-  <canvas id="gameCanvas" tabindex="0" aria-label="Игровое поле"></canvas>
+  <div id="joystickContainer">
+    <div id="joystick"></div>
+  </div>
 
   <script type="module" src="js/main.js"></script>
 </body>

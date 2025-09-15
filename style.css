@@ -9,7 +9,7 @@ html, body {
   touch-action: none;
 }
 
-#menu {
+#menu, #endScreen {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -18,7 +18,7 @@ html, body {
   z-index: 10;
 }
 
-#startButton {
+#startButton, #restartButton {
   padding: 15px 30px;
   font-size: 20px;
   margin-top: 10px;
@@ -30,7 +30,7 @@ html, body {
   transition: background 0.2s;
 }
 
-#startButton:hover {
+#startButton:hover, #restartButton:hover {
   background: #45A049;
 }
 
@@ -50,7 +50,7 @@ html, body {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   touch-action: none;
-  display: none; /* показываем только на сенсорных устройствах */
+  display: none; 
   z-index: 20;
 }
 

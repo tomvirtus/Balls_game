@@ -15,11 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     alert(rulesText[lang]); // показываем правила
     menu.style.display = 'none';
 
-    // показываем джойстик только на мобильных
     if ('ontouchstart' in window) {
       document.getElementById('joystickContainer').style.display = 'block';
     }
 
-    initGame();
+    initGame(lang);
   });
 });

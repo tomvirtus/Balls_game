@@ -1,6 +1,9 @@
-export function initGame() {
+export function initGame(lang = 'ru') {
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
+  const endScreen = document.getElementById('endScreen');
+  const endText = document.getElementById('endText');
+  const restartButton = document.getElementById('restartButton');
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -79,20 +82,28 @@ export function initGame() {
       }
     }
 
-    if (balls.length < 10) spawnBalls(10);
+    if (balls.length < 15) spawnBalls(5); // динамическое появление шариков
 
     if (player.score >= 1000) {
-      alert('Ты победил! / You win!');
-      location.reload();
+      endGame(true);
     }
 
     if (player.wrongEaten > 3) {
-      alert('Ты проиграл! / You lose!');
-      location.reload();
+      endGame(false);
     }
   }
 
-  // управление мышью
+  function endGame(won) {
+    endScreen.style.display = 'block';
+    endText.textContent = won ? (lang === 'ru' ? 'Вы победили!' : 'You win!') :
+                                (lang === 'ru' ? 'Вы проиграли!' : 'You lose!');
+  }
+
+  restartButton.addEventListener('click', () => {
+    location.reload(); // простой перезапуск игры
+  });
+
+  // мышь
   window.addEventListener('mousemove', e => {
     player.x = e.clientX;
     player.y = e.clientY;

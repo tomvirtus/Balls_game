@@ -108,3 +108,12 @@ export function initGame() {
 
   gameLoop();
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const startButton = document.getElementById('startButton');
+  const menu = document.getElementById('menu');
+
+  startButton.addEventListener('click', () => {
+    menu.style.display = 'none';   // скрываем меню
+    initGame();                    // запускаем игру
+  });
+});
